@@ -13,56 +13,57 @@ def draw_rectangle(base, target, rectangle, color):
   top_left = (rectangle[0], rectangle[1])
   bottom_right = (top_left[0] + needle_w, top_left[1] + needle_h)
   cv.rectangle(base, top_left, bottom_right, line_color, line_type)
-'''
 
-# def findCenterPoint(haystack_path, needle_path, threshold, color):
-#   haystack = cv.imread(haystack_path, cv.IMREAD_UNCHANGED)
-#   needle = cv.imread(needle_path, cv.IMREAD_UNCHANGED)
 
-#   needle_w = needle.shape[1]
-#   needle_h = needle.shape[0]
+def findCenterPoint(haystack_path, needle_path, threshold, color):
+  haystack = cv.imread(haystack_path, cv.IMREAD_UNCHANGED)
+  needle = cv.imread(needle_path, cv.IMREAD_UNCHANGED)
 
-#   result = cv.matchTemplate(haystack, needle, cv.TM_CCOEFF_NORMED)
+  needle_w = needle.shape[1]
+  needle_h = needle.shape[0]
 
-#   locations = np.where(result >= threshold)
-#   locations = list(map(lambda loc: (int(loc[0]), int(loc[1])), zip(*locations[::-1])))
+  result = cv.matchTemplate(haystack, needle, cv.TM_CCOEFF_NORMED)
 
-#   rectangles = []
-#   for location in locations:
-#     rect = [int(location[0]), int(location[1]), needle_w, needle_h]
-#     rectangles.append(rect)
-#     rectangles.append(rect)
+  locations = np.where(result >= threshold)
+  locations = list(map(lambda loc: (int(loc[0]), int(loc[1])), zip(*locations[::-1])))
 
-#   rectangles, weights = cv.groupRectangles(rectangles, 1, 0.5)
-#   print(rectangles)
+  rectangles = []
+  for location in locations:
+    rect = [int(location[0]), int(location[1]), needle_w, needle_h]
+    rectangles.append(rect)
+    rectangles.append(rect)
 
-#   points = []
-#   if len(rectangles):
-#     for rect in rectangles:
-#       center_x = rect[0] + needle_w // 2
-#       center_y = rect[1] + needle_h // 2
+  rectangles, weights = cv.groupRectangles(rectangles, 1, 0.5)
+  print(rectangles)
+
+  points = []
+  if len(rectangles):
+    for rect in rectangles:
+      center_x = rect[0] + needle_w // 2
+      center_y = rect[1] + needle_h // 2
       
-#       points.append((center_x, center_y))
+      points.append((center_x, center_y))
 
-#       cv.drawMarker(haystack, (center_x, center_y), color, cv.MARKER_CROSS, 25, 2, cv.LINE_8)
+      cv.drawMarker(haystack, (center_x, center_y), color, cv.MARKER_CROSS, 25, 2, cv.LINE_8)
 
-#     cv.imshow("Result", haystack)
-#     cv.waitKey()
+    cv.imshow("Result", haystack)
+    cv.waitKey()
 
-#   formatted_points = [(int(point[0]), int(point[1])) for point in points]
-#   return formatted_points
+  formatted_points = [(int(point[0]), int(point[1])) for point in points]
+  return formatted_points
 
-# # loading images
-# base = "base.png"
-# frog = "./targets/frog.png"
-# ball_red = "./targets/balls/ball-red.png"
-# ball_pink = "./targets/balls/ball-pink.png"
-# ball_yellow = "./targets/balls/ball-yellow.png"
-# ball_green = "./targets/balls/ball-green.png"
-# ball_blue = "./targets/balls/ball-blue.png"
+# loading images
+base = "base.png"
+frog = "./targets/frog.png"
+ball_red = "./targets/balls/ball-red.png"
+ball_pink = "./targets/balls/ball-pink.png"
+ball_yellow = "./targets/balls/ball-yellow.png"
+ball_green = "./targets/balls/ball-green.png"
+ball_blue = "./targets/balls/ball-blue.png"
 
-# points = findCenterPoint(base, ball_yellow, 0.64, (0, 0, 255))
-# print(points)
+points = findCenterPoint(base, ball_yellow, 0.64, (0, 0, 255))
+print(points)
+'''
 
 capture = WindowCapture('Zuma Deluxe 1.0')
 
