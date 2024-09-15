@@ -10,7 +10,6 @@ class WindowCapture:
   offset_x = 0
   offset_y = 0
 
-
   def __init__(self, window_name):
     self.hwnd = win32gui.FindWindow(None, window_name)
     if not self.hwnd:
@@ -33,7 +32,6 @@ class WindowCapture:
     self.offset_y = y + self.cropped_y
 
   def get_screenshot(self):
-
     wDC = win32gui.GetWindowDC(self.hwnd)
     dcObj = win32ui.CreateDCFromHandle(wDC)
     cDC = dcObj.CreateCompatibleDC()
